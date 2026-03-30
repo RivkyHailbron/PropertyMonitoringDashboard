@@ -1,3 +1,4 @@
+# Property Compliance and Inspection Monitoring System - APN: 2654002037
 
 ## Project Overview
 This automated system provides property managers and stakeholders with a high-level executive dashboard to monitor building inspections, complaints, and violations for APN: 2654002037. 
@@ -8,38 +9,52 @@ The solution automates data extraction from municipal portals and applies advanc
 
 ## Business Logic and Status Definitions
 
-Since source data lacks explicit status labels, the system analyzes the Activity Flow (Case Stack) to determine the state of each case.
+### Understanding the Need
+During the data investigation phase, I realized that the raw municipal records lack clear, real-time status labels. To solve this, I decided on the following status logic based on the chronological "Activity Flow" of each case:
 
-### 1. Status Logic
-* NEW: Assigned when the latest activity in the stack is 'Senior Inspector Appeal Received'.
-* OPEN: Cases where a complaint was received, but no initial inspection has been performed yet.
-* IN PROGRESS: Cases that have reached the 'Site Visit/Initial Inspection' stage and remain active without a closure date.
-* CLOSED: Cases with a definitive date recorded in the 'Date Closed' column of the primary record.
+* **NEW**: Assigned when the latest activity is 'Senior Inspector Appeal Received', indicating a recent escalation.
+* **OPEN**: Cases where a complaint was received, but no initial inspection has been performed yet.
+* **IN PROGRESS**: Cases that have reached the 'Site Visit/Initial Inspection' stage and remain active without a closure date.
+* **CLOSED**: Cases with a definitive date recorded in the 'Date Closed' column.
 
-### 2. Urgency and Prioritization
-Within the In Progress category, the system identifies HIGH urgency cases:
-* Logic: If the most recent event (top of the stack) is a 'Compliance Date', the case is flagged as HIGH.
-* Assumption: A Compliance Date indicates a mandatory legal deadline. It is assumed that an official follow-up inspection is imminent.
-* Sorting: High-priority cases are sorted from the oldest Compliance Date to the newest. 
-    * Rationale: Cases that have been waiting the longest since their compliance deadline are statistically more likely to be inspected next.
+### Urgency and Prioritization
+Within the **In Progress** category, the system identifies **HIGH** urgency cases:
+* **Logic**: If the most recent event is a 'Compliance Date', the case is flagged as HIGH.
+* **Assumption**: A Compliance Date indicates a mandatory legal deadline; therefore, a follow-up inspection is imminent.
+* **Sorting**: High-priority cases are sorted from the oldest Compliance Date to the newest (Longest waiting = Highest risk).
+
+---
+
+## Data Schema: Selected Fields & Rationale
+I chose to extract and store the following fields to ensure maximum operational value:
+* **Case Number & Type**: Essential for unique identification and legal classification.
+* **Status & Urgency (Derived)**: Created to transform static logs into an actionable management tool.
+* **Nature of Complaint**: Automatically enriched to provide immediate context without requiring manual lookups.
+* **Activity Flow**: Stored as a full list to allow deep-dive analysis of a case's history directly from the dashboard.
+
+---
+
+## Dashboard Preview
+
+### Executive Overview (High Urgency Tracking)
+Manual verification of an "In Progress" case with "HIGH" urgency:
+<img width="1838" height="850" alt="image" src="https://github.com/user-attachments/assets/f55592cf-f64e-416d-9634-c39132c77c8b" />
+
+### Interactive Case Selection
+Selecting a specific case to view detailed history and complaint nature:
+<img width="1858" height="718" alt="image" src="https://github.com/user-attachments/assets/38f41a98-c7d4-4c15-9cf7-77cb0007fad3" />
+
+### Detailed Activity Stack
+<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/5ea3078b-2396-4526-b620-db56d54e2b2c" />
 
 ---
 
 ## Technical Features
-* Hybrid Scraping Engine: Combined Selenium and Multi-threaded Requests (20 concurrent workers) for high-speed data extraction.
-* Data Enrichment: Automatically extracts the "Nature of Complaint" for every case to provide context.
-* Executive Dashboard: Built with Streamlit, featuring interactive Plotly charts and deep-dive filtering tabs.
+* **Hybrid Scraping Engine**: Combined Selenium and Multi-threaded Requests (20 concurrent workers) for high-speed data extraction.
+* **Data Enrichment**: Automatic extraction of the "Nature of Complaint" for every case.
+* **Executive Dashboard**: Built with Streamlit, featuring interactive Plotly charts.
 
 ---
-## Screen 
-### I manually made one in the treatment and it would be urgent-HIGH to see it clearly Screenshot where I made one in the treatment and urgent (HIGH) so we can see it in the charts
-<img width="1838" height="850" alt="image" src="https://github.com/user-attachments/assets/f55592cf-f64e-416d-9634-c39132c77c8b" />
-### Select a case and see the details:
-<img width="1858" height="718" alt="image" src="https://github.com/user-attachments/assets/38f41a98-c7d4-4c15-9cf7-77cb0007fad3" />
-
-### select:
-<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/5ea3078b-2396-4526-b620-db56d54e2b2c" />
-
 
 ## Installation and Execution Guide
 
@@ -54,17 +69,22 @@ Within the In Progress category, the system identifies HIGH urgency cases:
 
 ---
 
-## Future Improvements
-* Smart Deduplication: Implementation of logic to identify and merge duplicate complaints.
-* Delta Updates: Optimization of the engine to update the database only when changes are detected.
-* AI Analysis: Integration of Large Language Models to categorize complaint text and assess risks.
+## Future Improvements & Ideal Tech Stack
+
+### Improvements if given more time:
+* **Smart Deduplication**: Implement fuzzy-matching to merge duplicate complaints for the same physical issue.
+* **Delta Updates**: Optimize the engine to update only modified records instead of full database rewrites.
+* **AI Risk Scoring**: Integrate LLMs to analyze complaint text and automatically categorize severity.
+
+### The Ideal Stack for Scalability:
+* **Backend**: **FastAPI** with **PostgreSQL** for robust data persistence.
+* **Task Management**: **Celery & Redis** to handle background scraping at scale.
+* **Frontend**: **React** for a more flexible, enterprise-grade user interface.
 
 ---
 
 ## Project Structure
-* scraping.py: Orchestrates parallel scraping and case classification.
-* selenium_scraping.py: Core utility functions for web extraction.
-* app.py: Streamlit dashboard UI and interactive logic.
-* requirements.txt: Project dependencies
- 
- 
+* `scraping.py`: Orchestrates parallel scraping and business logic.
+* `selenium_scraping.py`: Core utility functions for web extraction.
+* `app.py`: Streamlit dashboard UI and interactive logic.
+* `requirements.txt`: Project dependencies.
