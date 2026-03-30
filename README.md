@@ -1,4 +1,4 @@
-# Property Compliance and Inspection Monitoring System
+<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/17f2025d-7c7b-4fb0-996b-24d418648b9f" /># Property Compliance and Inspection Monitoring System
 
 ## Project Overview
 This automated system provides property managers and stakeholders with a high-level executive dashboard to monitor building inspections, complaints, and violations for APN: 2654002037. 
@@ -35,10 +35,10 @@ Within the In Progress category, the system identifies HIGH urgency cases:
 ## Screen 
 ### I manually made one in the treatment and it would be urgent-HIGH to see it clearly Screenshot where I made one in the treatment and urgent (HIGH) so we can see it in the charts
 <img width="1838" height="850" alt="image" src="https://github.com/user-attachments/assets/f55592cf-f64e-416d-9634-c39132c77c8b" />
-
-<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/cbc04a22-6613-4d78-8591-8267097e2902" />
 ### Select a case and see the details:
-![Uploading image.png…]()
+<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/cbc04a22-6613-4d78-8591-8267097e2902" />
+### select:
+<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/5ea3078b-2396-4526-b620-db56d54e2b2c" />
 
 
 ## Installation and Execution Guide
