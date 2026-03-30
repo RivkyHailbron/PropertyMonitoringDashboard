@@ -32,6 +32,14 @@ Within the In Progress category, the system identifies HIGH urgency cases:
 * Executive Dashboard: Built with Streamlit, featuring interactive Plotly charts and deep-dive filtering tabs.
 
 ---
+## Screen 
+### I manually made one in the treatment and it would be urgent-HIGH to see it clearly Screenshot where I made one in the treatment and urgent (HIGH) so we can see it in the charts
+<img width="1838" height="850" alt="image" src="https://github.com/user-attachments/assets/f55592cf-f64e-416d-9634-c39132c77c8b" />
+
+<img width="1823" height="901" alt="image" src="https://github.com/user-attachments/assets/cbc04a22-6613-4d78-8591-8267097e2902" />
+### Select a case and see the details:
+![Uploading image.png…]()
+
 
 ## Installation and Execution Guide
 
@@ -57,6 +65,6 @@ Within the In Progress category, the system identifies HIGH urgency cases:
 * scraping.py: Orchestrates parallel scraping and case classification.
 * selenium_scraping.py: Core utility functions for web extraction.
 * app.py: Streamlit dashboard UI and interactive logic.
-* requirements.txt: Project dependencies.#   P r o p e r t y M o n i t o r i n g D a s h b o a r d 
+* requirements.txt: Project dependencies
  
  
