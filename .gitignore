@@ -1,0 +1,15 @@
+# Python temporary files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+env/
+venv/
+
+# Data files (We want the user to generate their own data)
+inspections_data.json
+
+# Streamlit
+.streamlit/
